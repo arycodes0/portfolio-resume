@@ -1,0 +1,78 @@
+{% load static %}
+<section id="projects" aria-labelledby="projects-heading">
+	<div class="container">
+		<header class="row" id="project-row">
+			<div class="col-12">
+				<div class="text-center">
+					<h2 id="projects-heading" class="fs-1 mb-2">
+						My personal projects
+					</h2>
+				</div>
+			</div>
+		</header>
+
+		<main class="row g-4 justify-content-center">
+			{% for project in projects %}
+			<div class="col-12 col-lg-12">
+				<article
+					class="project-card {% if forloop.counter0|divisibleby:2 %}image-left{% else %}image-right{% endif %}"
+					itemscope itemtype="https://schema.org/CreativeWork">
+					<div class="project-content">
+						<div class="project-visual">
+							<div class="project-image-container">
+								<img src="{{ project.image.url }}" alt="{{ project.alt|default:project.title }}"
+									class="project-image" itemprop="image">
+							</div>
+						</div>
+						<div class="project-details p-2">
+							<h3 class="project-title" itemprop="name">{{ project.title }}</h3>
+							<p class="project-full-description" itemprop="description">{{ project.description }}</p>
+							<!-- Tech Stack Tags -->
+							<div class="tech-tags" role="list" aria-label="Technologies used in {{ project.title }}">
+								<!-- {% regroup project.technologies.all by category as tech_categories %} -->
+								{% for category in tech_categories %}
+									{% for tech in category.list %}
+									<span class="tech-tag" role="listitem" itemscope itemtype="https://schema.org/Thing">
+										{% if tech.logo %}
+										<img src="{{ tech.logo.url }}" alt="{{ tech.name }}" class="tech-tag-icon"
+											itemprop="image">
+										{% else %}
+										<i class="fas fa-code tech-tag-icon" aria-hidden="true"></i>
+										{% endif %}
+										<span class="tech-tag-text" itemprop="name">{{ tech.name }}</span>
+									</span>
+									{% endfor %}
+								{% endfor %}
+							</div>
+							<!-- Action Buttons -->
+							<nav class="project-actions d-flex" aria-label="Project actions">
+								{% if project.github_url %}
+								<a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer"
+									class="zoom-hover mx-sm-0 mx-md-2 social-btn github-btn no-underline fs-6 py-2 px-4"
+									aria-label="View {{ project.title }} source code on GitHub">
+									<i class="fab fa-github me-2" aria-hidden="true"></i>Source Code
+								</a>
+								{% endif %}
+								{% if project.live_demo_url %}
+								<a href="{{ project.live_demo_url }}" target="_blank" rel="noopener noreferrer"
+									class="btn btn-success fs-6 py-2 px-4"
+									aria-label="View live demo of {{ project.title }}">
+									<i class="fas fa-check me-2" aria-hidden="true"></i>Live Demo
+								</a>
+								{% endif %}
+							</nav>
+						</div>
+					</div>
+				</article>
+			</div>
+
+			{% empty %}
+			<div class="col-12">
+				<div class="text-center">
+					<p class="text-muted">No projects available yet.</p>
+				</div>
+			</div>
+			{% endfor %}
+		</main>
+	</div>
+</section>

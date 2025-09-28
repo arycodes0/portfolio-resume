@@ -1,0 +1,97 @@
+{% load static %}
+<section id="tech-stack" aria-labelledby="tech-stack-heading">
+	<div class="container">
+		<header class="row">
+			<div class="col-12">
+				<div class="text-center">
+					<h2 id="tech-stack-heading" class="fs-1">Tech Stack</h2>
+					<p class="tech-stack-subtitle fs-4 mb-2">Technologies and tools I work with</p>
+				</div>
+			</div>
+		</header>
+
+		<main class="row g-4 justify-content-center">
+			{% for category in tech_categories %}
+			<div class="col-12 col-md-12">
+				<article
+					class="tech-category-card {% if 'backend' in category.name|lower %}backend{% elif 'frontend' in category.name|lower %}frontend{% elif 'tools' in category.name|lower %}tools{% elif 'learning' in category.name|lower %}learning{% endif %} d-flex flex-column"
+					itemscope itemtype="https://schema.org/ItemList">
+					<header>
+						<h3 class="d-block category-title fs-1 d-inline-block mx-auto {% if 'backend' in category.name|lower %}backend{% elif 'frontend' in category.name|lower %}frontend{% elif 'tools' in category.name|lower %}tools{% elif 'learning' in category.name|lower %}learning{% endif %}"
+							itemprop="name">{{ category.name|upper }}</h3>
+					</header>
+					<div class="tech-grid" role="list" aria-label="{{ category.name }} technologies">
+						{% for tech in category.technologies.all %}
+						<div class="tech-item p-2" role="listitem" itemscope itemtype="https://schema.org/Thing">
+							{% if tech.logo %}
+							<img src="{{ tech.logo.url }}" alt="{{ tech.alt|default:tech.name }}" class="tech-logo"
+								itemprop="image">
+							{% else %}
+							<div class="tech-placeholder" aria-hidden="true">
+								<i class="fas fa-code"></i>
+							</div>
+							{% endif %}
+							<span class="tech-name" itemprop="name">{{ tech.name }}</span>
+						</div>
+						{% empty %}
+						<div class="no-tech">
+							<div class="coming-soon-icon" aria-hidden="true">
+								<i class="fas fa-laptop"></i>
+							</div>
+							<p class="coming-soon-text">Coming soon</p>
+						</div>
+						{% endfor %}
+					</div>
+				</article>
+			</div>
+			{% empty %}
+			<div class="col-12">
+				<div class="text-center">
+					<p class="text-muted">No tech categories added yet.</p>
+				</div>
+			</div>
+			{% endfor %}
+		</main>
+		<!-- <main class="tech-container-grid">
+			{% for category in tech_categories %}
+			<article
+				class="tech-category-card {% if 'backend' in category.name|lower %}backend{% elif 'frontend' in category.name|lower %}frontend{% elif 'tools' in category.name|lower %}tools{% elif 'learning' in category.name|lower %}learning{% endif %} d-flex flex-column"
+				itemscope itemtype="https://schema.org/ItemList">
+				<header>
+					<h3 class="d-block category-title fs-1 d-inline-block mx-auto {% if 'backend' in category.name|lower %}backend{% elif 'frontend' in category.name|lower %}frontend{% elif 'tools' in category.name|lower %}tools{% elif 'learning' in category.name|lower %}learning{% endif %}"
+						itemprop="name">{{ category.name|upper }}</h3>
+				</header>
+				<div class="tech-grid" role="list" aria-label="{{ category.name }} technologies">
+					{% for tech in category.technologies.all %}
+					<div class="tech-item p-2" role="listitem" itemscope itemtype="https://schema.org/Thing">
+						{% if tech.logo %}
+						<img src="{{ tech.logo.url }}" alt="{{ tech.alt|default:tech.name }}" class="tech-logo"
+							itemprop="image">
+						{% else %}
+						<div class="tech-placeholder" aria-hidden="true">
+							<i class="fas fa-code"></i>
+						</div>
+						{% endif %}
+						<span class="tech-name" itemprop="name">{{ tech.name }}</span>
+					</div>
+					{% empty %}
+					<div class="no-tech">
+						<div class="coming-soon-icon" aria-hidden="true">
+							<i class="fas fa-laptop"></i>
+						</div>
+						<p class="coming-soon-text">Coming soon</p>
+					</div>
+					{% endfor %}
+				</div>
+			</article>
+			{% empty %}
+			<div class="col-12">
+				<div class="text-center">
+					<p class="text-muted">No tech categories added yet.</p>
+				</div>
+			</div>
+			{% endfor %}
+		</main> -->
+		<!-- </main> -->
+	</div>
+</section>

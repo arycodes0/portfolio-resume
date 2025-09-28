@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Disallow admin area
+Disallow: /admin/
+
+# Disallow any private or sensitive areas
+Disallow: /csp-report/
+
+# Allow all other content
+Allow: /static/
+Allow: /media/

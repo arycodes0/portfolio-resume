@@ -1,0 +1,18 @@
+<script>
+    window.addEventListener('scroll', function (e) {
+        console.log("navbar");
+        const navbar = document.querySelector(".navbar");
+
+        if (window.scrollY <= 10) {
+            navbar.classList.add("navbar-animation");
+            navbar.classList.remove("navbar-animation-off");
+        } else {
+            navbar.classList.add("navbar-animation-off");
+            navbar.classList.remove("navbar-animation");
+        }
+    });
+
+    // $('.carousel').carousel({
+    //   interval: 4000
+    // });
+</script>
